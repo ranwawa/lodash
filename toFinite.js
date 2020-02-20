@@ -27,6 +27,9 @@ const MAX_INTEGER = 1.7976931348623157e+308
  */
 function toFinite(value) {
   if (!value) {
+    // todo
+    // 一共就只有这7种情况为假 '' NaN false null undefined 0 -0
+    // 为啥要搞个三元运算,直接返回0更好啊
     return value === 0 ? value : 0
   }
   value = toNumber(value)
@@ -34,6 +37,7 @@ function toFinite(value) {
     const sign = (value < 0 ? -1 : 1)
     return sign * MAX_INTEGER
   }
+  // 因为toNumber还可能再返回NaN,所以这里要判断一下
   return value === value ? value : 0
 }
 

@@ -20,6 +20,7 @@ import toInteger from './toInteger.js'
  * // => [['a', 'b', 'c'], ['d']]
  */
 function chunk(array, size = 1) {
+  // 函数入参时,最起码要主动跑出期望值异常,最好是处理各种边界情况
   size = Math.max(toInteger(size), 0)
   const length = array == null ? 0 : array.length
   if (!length || size < 1) {
@@ -29,7 +30,10 @@ function chunk(array, size = 1) {
   let resIndex = 0
   const result = new Array(Math.ceil(length / size))
 
+  // 循环时,能用while就别用for,要少2步操作啊
   while (index < length) {
+    // 计算一下 下标添加和push的时间差
+    // 在chrome里面1000W次的性能差异也就几十ms
     result[resIndex++] = slice(array, index, (index += size))
   }
   return result

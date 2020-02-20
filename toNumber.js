@@ -1,3 +1,4 @@
+/* pass */
 import isObject from './isObject.js'
 import isSymbol from './isSymbol.js'
 
@@ -50,8 +51,10 @@ function toNumber(value) {
   }
   if (isObject(value)) {
     const other = typeof value.valueOf === 'function' ? value.valueOf() : value
+    // 因为toString方法必须返回字符串,所以这里会做最后一次兼容,就不用担心会出现其他意外情况了
     value = isObject(other) ? `${other}` : other
   }
+  // 因为valueOf有可能直接被重写非函数,所以上面的代码也可能有遗漏,这里最后转换一次
   if (typeof value !== 'string') {
     return value === 0 ? value : +value
   }
