@@ -33,7 +33,7 @@ function chunk(array, size = 1) {
   // 循环时,能用while就别用for,要少2步操作啊
   while (index < length) {
     // 计算一下 下标添加和push的时间差
-    // 在chrome里面1000W次的性能差异也就几十ms
+    // 时间几乎一样,优先使用push,这里可能是浏览器兼容问题
     result[resIndex++] = slice(array, index, (index += size))
   }
   return result
